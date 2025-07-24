@@ -38,18 +38,17 @@ set top_dir=%~dp0
 set sgxssl_dir=%top_dir%\sgxssl
 
 set openssl_out_dir=%sgxssl_dir%\openssl_source
-set openssl_ver_name=openssl-3.1.6
+set openssl_ver_name=openssl-3.0.14
 set sgxssl_github_archive=https://github.com/intel/intel-sgx-ssl/archive
-set sgxssl_ver_name=3.1.6_Rev1
+set sgxssl_ver_name=3.0_Rev4
 set sgxssl_ver=%sgxssl_ver_name%
 set build_script=%sgxssl_dir%\Windows\build_package.cmd
 
-@Rem set server_url_path=https://www.openssl.org/source/
-set server_url_path=https://af01p-igk.devtools.intel.com/artifactory/sgxdcapprerequisites-igk-local/prebuilt/ssl
+set server_url_path=https://www.openssl.org/source/old/3.0/
 
 set full_openssl_url=%server_url_path%/%openssl_ver_name%.tar.gz
-set sgxssl_chksum=8fbacac2612f6117c11d04cd7989f1a035f978683a4626055133b2fbf332d016
-set openssl_chksum=5d2be4036b478ef3cb0a854ca9b353072c3a0e26d8a56f8f0ab9fb6ed32d38d7
+set sgxssl_chksum=3ae56df48a56f58fce8d0472ea82cc4380e30442b49b931c027fda9e637cb3fa
+set openssl_chksum=eeca035d4dd4e84fc25846d952da6297484afa0650a6f84c682e39df3a4123ca
 
 if not exist %sgxssl_dir% (
 	mkdir %sgxssl_dir%
@@ -60,9 +59,9 @@ if not exist %build_script% (
 	call powershell -Command "$sgxsslfilehash = Get-FileHash %sgxssl_dir%\%sgxssl_ver_name%.zip; Write-Output $sgxsslfilehash.Hash | out-file -filepath %sgxssl_dir%\check_sum_sgxssl.txt -encoding ascii"
 	findstr /i %sgxssl_chksum% %sgxssl_dir%\check_sum_sgxssl.txt>nul
 	if !errorlevel! NEQ 0  (
-	echo "File %sgxssl_dir%\%sgxssl_ver_name%.zip checksum failure"
-	del /f /q %sgxssl_dir%\%sgxssl_ver_name%.zip
-	exit /b 1
+        echo "File %sgxssl_dir%\%sgxssl_ver_name%.zip checksum failure"
+        del /f /q %sgxssl_dir%\%sgxssl_ver_name%.zip
+        exit /b 1
 	)
 	call powershell -Command "Expand-Archive -LiteralPath '%sgxssl_dir%\%sgxssl_ver_name%.zip' -DestinationPath %sgxssl_dir%"
     xcopy /y "%sgxssl_dir%\intel-sgx-ssl-%sgxssl_ver%" %sgxssl_dir% /e
@@ -84,7 +83,11 @@ if !errorlevel! NEQ 0  (
 
 if not exist %sgxssl_dir%\Windows\package\lib\%PFM%\%CFG%\libsgx_tsgxssl.lib (
 	cd %sgxssl_dir%\Windows\
-	start /WAIT cmd /C call %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM || exit /b 1
+	cmd /C (echo | call %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM)
+    if !errorlevel! NEQ 0  (
+        echo "Error calling %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM"
+        exit /b 1
+    )
     xcopy /E /H /y %sgxssl_dir%\Windows\package %top_dir%\package\
 
 	cd ..\
