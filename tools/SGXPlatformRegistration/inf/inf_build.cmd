@@ -21,13 +21,12 @@ echo:
 SET SRC_DIR=..\
 SET DST_DIR=.\Output
 SET BIN_DIR=%SRC_DIR%\x64\Release
-set TOOLSFOLDER=.\..\..\..\..\..\installer_tools\Tools\standalone_build_se\sign
+set TOOLSFOLDER=.\..\..\..\..\installer_tools\Tools\standalone_build_se\sign
 set SIGNTOOL="%TOOLSFOLDER%\SignFile.exe"
-set SIGNCERT=%TOOLSFOLDER%\Certificates\intel-ca.crt
 
-SET INF2CAT="C:\Program Files (x86)\Windows Kits\10\bin\x86\inf2cat.exe"
-SET STAMPINF="C:\Program Files (x86)\Windows Kits\10\bin\x86\stampinf.exe"
-SET INFVER="C:\Program Files (x86)\Windows Kits\10\Tools\x64\infverif.exe"
+SET INF2CAT="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\inf2cat.exe"
+SET STAMPINF="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\stampinf.exe"
+SET INFVER="C:\Program Files (x86)\Windows Kits\10\Tools\10.0.26100.0\x64\infverif.exe"
 SET DBG_SIGN_TOOL="C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe"
 
 
@@ -45,7 +44,7 @@ CALL :COPY_FILE %BIN_DIR%\mp_uefi.dll %DST_DIR%\
 CALL :COPY_FILE %BIN_DIR%\mp_network.dll %DST_DIR%\
 
 CALL :COPY_FILE %BIN_DIR%\mpa_manage.exe %DST_DIR%\
-CALL :COPY_FILE ..\..\..\..\..\SDK_installer\InstallBinaries\bin\x64\Release\sgx_capable.dll %DST_DIR%\
+CALL :COPY_FILE ..\..\..\..\SDK_installer\InstallBinaries\bin\x64\Release\sgx_capable.dll %DST_DIR%\
 CALL :COPY_FILE %BIN_DIR%\mpa.exe %DST_DIR%\
 
 echo ========== Stamping INF file ================
@@ -63,26 +62,26 @@ IF /I "%ERRORLEVEL%" NEQ "0" (
 )
 echo:
 echo ========= Creating The Catalog File ==============
-%INF2CAT% /driver:%DST_DIR% /os:10_x64 /uselocaltime /VERBOSE 
+%INF2CAT% /driver:%DST_DIR% /os:10_x64 /uselocaltime /VERBOSE
 IF /I "%ERRORLEVEL%" NEQ "0" (
     goto exit
 )
 echo:
 
 echo ========= Signing The Catalog File and executibales ===============
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 "%DST_DIR%\sgx_mpa.cat"
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 %DST_DIR%\mpa.exe
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 %DST_DIR%\mpa_manage.exe
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 %DST_DIR%\mp_network.dll
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 %DST_DIR%\mp_uefi.dll
-%SIGNTOOL% -cafile %SIGNCERT% -ha SHA256 %DST_DIR%\events.dll
+%SIGNTOOL% -vv -ha sha256 "%DST_DIR%\sgx_mpa.cat"
+%SIGNTOOL% -vv -ha sha256 %DST_DIR%\mpa.exe
+%SIGNTOOL% -vv -ha sha256 %DST_DIR%\mpa_manage.exe
+%SIGNTOOL% -vv -ha sha256 %DST_DIR%\mp_network.dll
+%SIGNTOOL% -vv -ha sha256 %DST_DIR%\mp_uefi.dll
+%SIGNTOOL% -vv -ha sha256 %DST_DIR%\events.dll
 
 echo:
 echo *** SGX MPRA INF Installer Build Succesful. Bye bye.***
 goto fin
 
 :COPY_FILE
-echo f | xcopy %1 %2 /Y /F 
+echo f | xcopy %1 %2 /Y /F
 IF /I "%ERRORLEVEL%" NEQ "0" (
 	goto copy_failure
 )
@@ -95,7 +94,7 @@ echo -----------------------------------------
 
 :exit
 echo:
-echo *** SGX MPRA INF Installer Build Script exiting. Bye bye. ***
+echo *** SGX MPA INF Installer Build Script exiting. Bye bye. ***
 exit
 
 :fin
