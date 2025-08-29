@@ -50,14 +50,12 @@ EXTERNAL_PATH := $(MKFILE_PATH)/../../external
 
 DEST_PATH := $(BUILD_PATH)/release
 INSTALL_PATH := $(DEST_PATH)/installer
-STRIP := strip
 
 GTEST_PATH := $(EXTERNAL_PATH)/gtest/build
 TEST_PATH := $(MKFILE_PATH)/test
 
 ifdef DEBUG
 	DEST_PATH := $(BUILD_PATH)/debug
-	STRIP := echo
 endif
 
 OBJ_PATH := $(DEST_PATH)/obj
@@ -176,7 +174,6 @@ pre-build:
 		$(OBJ_TEST_PATH)
 
 post-build: main-build
-	$(STRIP) $(BIN_PATH)/*
 
 main-build: pre-build
 	@$(MAKE) --no-print-directory $(BIN_PATH)/mpa_registration
