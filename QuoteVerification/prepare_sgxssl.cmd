@@ -70,8 +70,7 @@ if not exist %build_script% (
 )
 
 if not exist %openssl_out_dir%\%openssl_ver_name%.tar.gz (
-@Rem	call powershell -Command "Invoke-WebRequest -URI %full_openssl_url% -OutFile %openssl_out_dir%\%openssl_ver_name%.tar.gz"
-	call powershell -Command " [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; (New-Object Net.WebClient).DownloadFile('%full_openssl_url%', '%openssl_out_dir%\%openssl_ver_name%.tar.gz'); exit" > nul
+	call powershell -Command "Invoke-WebRequest -URI %full_openssl_url% -OutFile %openssl_out_dir%\%openssl_ver_name%.tar.gz"
 )
 call powershell -Command " $opensslfilehash = Get-FileHash %openssl_out_dir%\%openssl_ver_name%.tar.gz; Write-Output $opensslfilehash.Hash | out-file -filepath %sgxssl_dir%\check_sum_openssl.txt -encoding ascii"
 findstr /i %openssl_chksum% %sgxssl_dir%\check_sum_openssl.txt>nul
@@ -84,10 +83,10 @@ if !errorlevel! NEQ 0  (
 if not exist %sgxssl_dir%\Windows\package\lib\%PFM%\%CFG%\libsgx_tsgxssl.lib (
 	cd %sgxssl_dir%\Windows\
 	cmd /C (echo | call %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM)
-    if !errorlevel! NEQ 0  (
-        echo "Error calling %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM"
-        exit /b 1
-    )
+	if !errorlevel! NEQ 0  (
+		echo "Error calling %build_script% %PFM%_%CFG% %openssl_ver_name% no-clean SIM"
+		exit /b 1
+	)
     xcopy /E /H /y %sgxssl_dir%\Windows\package %top_dir%\package\
 
 	cd ..\
