@@ -125,18 +125,20 @@ __attribute__((weak)) sgx_logging_callback_t sgx_trace_logger_callback = NULL;
 
 /* SE_PROD_LOG will output message to stdout by default in production mode.
    When the executable is running as daemon, it will output to syslog. */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : \
+                     (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__))
 #ifdef _WIN32
 #define SE_PROD_LOG(fmt, ...)                                                                                       \
     do {                                                                                                            \
-        sgx_proc_log_report(1, 1, "[%s %s:%d] " fmt, __FUNCTION__, __FILE__, __LINE__, ##__VA_ARGS__);              \
+        sgx_proc_log_report(1, 1, "[%s %s:%d] " fmt, __FUNCTION__, __FILENAME__, __LINE__, ##__VA_ARGS__);              \
     }while(0)
 #else
 #define SE_PROD_LOG(fmt, ...)                                                                                       \
     do {                                                                                                            \
         if(sgx_proc_log_report != NULL) {                                                                                   \
-            sgx_proc_log_report(1, "[%s %s:%d] " fmt, __FUNCTION__, __FILE__, __LINE__, ##__VA_ARGS__);             \
+            sgx_proc_log_report(1, "[%s %s:%d] " fmt, __FUNCTION__, __FILENAME__, __LINE__, ##__VA_ARGS__);             \
         } else {                                                                                                    \
-            se_trace_internal(SE_TRACE_ERROR, "[%s %s:%d] " fmt, __FUNCTION__, __FILE__, __LINE__, ##__VA_ARGS__);  \
+            se_trace_internal(SE_TRACE_ERROR, "[%s %s:%d] " fmt, __FUNCTION__, __FILENAME__, __LINE__, ##__VA_ARGS__);  \
         }                                                                                                           \
     }while(0)
 #endif
