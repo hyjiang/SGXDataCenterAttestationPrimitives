@@ -30,6 +30,7 @@
 #
 
 CUR_MKFILE:= $(lastword $(MAKEFILE_LIST))
+include version.mk
 
 .PHONY: all dcap opt_check_failed clean rebuild pce_logic tdx_logic tdx_qgs tdx_attest qe3_logic qcnl_wrapper qpl_wrapper qve_wrapper
 
@@ -44,7 +45,6 @@ get_distr_info = $(patsubst "%",%,$(shell grep $(1) /etc/os-release 2> /dev/null
 
 DISTR_ID := $(call get_distr_info, '^ID=')
 DISTR_VER := $(call get_distr_info, '^VERSION_ID=')
-
 
 # DCAP requires prebuilt enclaves.
 CHECK_OPT :=
@@ -91,7 +91,7 @@ deb_sgx_dcap_default_qpl_pkg: qcnl_wrapper qpl_wrapper
 
 .PHONY: deb_sgx_dcap_pccs_pkg
 deb_sgx_dcap_pccs_pkg:
-	./installer/linux/deb/sgx-dcap-pccs/build.sh
+	$(MAKE) -C pccs deb_sgx_dcap_pccs_pkg PCCS_VERSION=$(DCAP_VER)
 
 .PHONY: deb_sgx_ae_qe3_pkg
 deb_sgx_ae_qe3_pkg: $(CHECK_OPT)
@@ -182,7 +182,7 @@ rpm_sgx_dcap_default_qpl_pkg: qcnl_wrapper qpl_wrapper
 
 .PHONY: rpm_sgx_dcap_pccs_pkg
 rpm_sgx_dcap_pccs_pkg:
-	./installer/linux/rpm/sgx-dcap-pccs/build.sh
+	$(MAKE) -C pccs rpm_sgx_dcap_pccs_pkg PCCS_VERSION=$(DCAP_VER)
 
 .PHONY: rpm_sgx_ae_qe3_pkg
 rpm_sgx_ae_qe3_pkg: $(CHECK_OPT)
@@ -267,6 +267,7 @@ clean:
 	$(MAKE) -C ../QuoteVerification clean
 	$(MAKE) -C ../tools/PCKRetrievalTool clean
 	$(MAKE) -C ../tools/SGXPlatformRegistration clean
+	$(MAKE) -C pccs clean
 	@$(RM) -r ./build/
 	@$(RM) ./installer/linux/deb/*.deb
 	@$(RM) ./installer/linux/deb/*.ddeb
@@ -283,7 +284,6 @@ clean:
 	./installer/linux/deb/tdx-qgs/clean.sh
 	./installer/linux/deb/libtdx-attest/clean.sh
 	./installer/linux/deb/libsgx-dcap-default-qpl/clean.sh
-	./installer/linux/deb/sgx-dcap-pccs/clean.sh
 	../tools/PCKRetrievalTool/installer/deb/sgx-pck-id-retrieval-tool/clean.sh
 	./installer/linux/deb/tee-appraisal-tool/clean.sh
 	./installer/linux/rpm/libsgx-dcap-ql/clean.sh
@@ -298,7 +298,6 @@ clean:
 	./installer/linux/rpm/tdx-qgs/clean.sh
 	./installer/linux/rpm/libtdx-attest/clean.sh
 	./installer/linux/rpm/libsgx-dcap-default-qpl/clean.sh
-	./installer/linux/rpm/sgx-dcap-pccs/clean.sh
 	../tools/PCKRetrievalTool/installer/rpm/sgx-pck-id-retrieval-tool/clean.sh
 	./installer/linux/rpm/tee-appraisal-tool/clean.sh
 
