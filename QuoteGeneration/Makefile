@@ -91,9 +91,6 @@ deb_sgx_dcap_default_qpl_pkg: qcnl_wrapper qpl_wrapper
 
 .PHONY: deb_sgx_dcap_pccs_pkg
 deb_sgx_dcap_pccs_pkg:
-	$(MAKE) -C ../tools/PCKCertSelection/
-	mkdir -p pccs/lib/
-	cp ../tools/PCKCertSelection/out/libPCKCertSelection.so pccs/lib/
 	./installer/linux/deb/sgx-dcap-pccs/build.sh
 
 .PHONY: deb_sgx_ae_qe3_pkg
@@ -185,9 +182,6 @@ rpm_sgx_dcap_default_qpl_pkg: qcnl_wrapper qpl_wrapper
 
 .PHONY: rpm_sgx_dcap_pccs_pkg
 rpm_sgx_dcap_pccs_pkg:
-	$(MAKE) -C ../tools/PCKCertSelection/
-	mkdir -p pccs/lib/
-	cp ../tools/PCKCertSelection/out/libPCKCertSelection.so pccs/lib/
 	./installer/linux/rpm/sgx-dcap-pccs/build.sh
 
 .PHONY: rpm_sgx_ae_qe3_pkg
