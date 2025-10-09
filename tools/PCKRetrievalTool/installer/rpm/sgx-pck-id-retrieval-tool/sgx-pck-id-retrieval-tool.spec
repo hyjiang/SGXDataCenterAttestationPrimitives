@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2020 Intel Corporation. All rights reserved.
+# Copyright (C) 2011-2025 Intel Corporation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -38,6 +38,7 @@ Release:        1%{?dist}
 Summary:        Intel(R) Software Guard Extensions:this tool is used to collect the platform information to retrieve the PCK certs from PCS(Provisioning Certification Server)
 Group:          Development/System
 Recommends:     libsgx-urts >= 2.26, libsgx-ae-pce >= %{version}-%{release}, libsgx-ae-id-enclave >= %{version}-%{release},libsgx-ra-uefi >= %{version}-%{release}
+Suggests:       intel-tee-pcs-client-tool >= %{version}-%{release}
 
 License:        BSD License
 URL:            https://github.com/intel/SGXDataCenterAttestationPrimitives

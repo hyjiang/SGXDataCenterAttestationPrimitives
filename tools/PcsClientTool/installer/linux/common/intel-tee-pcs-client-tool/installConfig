@@ -1,0 +1,8 @@
+PCS_CLIENT_VERSION="1.0"
+TARBALL_NAME=intel-tee-pcs-client-tool_1.0.orig.tar.gz
+
+PCS_CLIENT_PACKAGE_PATH=/opt/intel
+PCS_CLIENT_PACKAGE_NAME=intel-tee-pcs-client-tool
+PCS_CLIENT_PACKAGE_INSTALL_DIR_NAME=pcs-client-tool
+PCS_CLIENT_MAIN_SCRIPT_NAME=pcsclient.py
+PCS_CLIENT_WRAPPER_SCRIPT_NAME=pcs-client-tool

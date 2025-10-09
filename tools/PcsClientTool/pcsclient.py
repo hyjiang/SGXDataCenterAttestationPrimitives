@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 
+#
+# Copyright(c) 2020-2025 Intel Corporation
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
 import argparse
-import requests
 import os
 import csv
 import json
 import re
 import struct
+import sys
 import time
 from lib.intelsgx.pckcert import SgxPckCertificateExtensions
 from lib.intelsgx.pcs import PCS
@@ -17,8 +22,9 @@ import traceback
 
 PCS_SERVICE_URL = 'https://api.trustedservices.intel.com/sgx/certification/v4/'
 
-def main():
-    parser = argparse.ArgumentParser(description="Client tool for PCS")
+def main():    
+    prog = os.environ.get("PCS_CLIENT_TOOL_EXECUTABLE_WRAPPER", os.path.basename(os.path.realpath(sys.argv[0])))
+    parser = argparse.ArgumentParser(description="Client tool for PCS", prog=prog)
     #parser.add_argument('action', help='Choose your action')
     subparsers = parser.add_subparsers(dest="command")
 

@@ -1,0 +1,15 @@
+__pycache__/
+installer/linux/common/intel-tee-pcs-client-tool/gen_source.py
+output/
+
+installer/linux/deb/*/*.deb
+installer/linux/deb/*/*.buildinfo
+installer/linux/deb/*/*.changes
+installer/linux/deb/*/*.tar.xz
+installer/linux/deb/*/*.dsc
+installer/linux/deb/*/*.orig.tar.gz
+installer/linux/deb/intel-tee-pcs-client-tool/intel-tee-pcs-client-tool-*
+!installer/linux/deb/intel-tee-pcs-client-tool/intel-tee-pcs-client-tool-1.0
+
+installer/linux/rpm/*/*.rpm
+installer/linux/rpm/intel-tee-pcs-client-tool/intel-tee-pcs-client-tool-*/

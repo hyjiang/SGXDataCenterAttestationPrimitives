@@ -1,0 +1,20 @@
+Source: intel-tee-pcs-client-tool
+Section: python
+Priority: optional
+Maintainer: Intel Confidential Computing Team <confidential.computing@intel.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/intel/SGXDataCenterAttestationPrimitives
+
+Package: intel-tee-pcs-client-tool
+Provides: pcs-client-tool
+Architecture: all
+Depends: ${misc:Depends}, python3, python3-venv, python3-pip, bash
+# ___
+# vvv - pccs-admin-tool is a weak reverse dependency aka. reverse hint (not installed by default by package managers).
+#       It is reflected only to document the relationship between the 2 tools and that they can work in tandem in for certain air-gapped scenarios.
+#       Note the `pcs-client-tool` is perfectly-standalone for non-PCCS use cases.
+#     - Similarly, in a non-PCCS use case, the pcs-client-tool works in concert with PCKIDRetrievalTool (inputs producer) and the default QPL/QCNL (cache file consumer).
+Enhances: intel-tee-pccs-admin-tool (>= @dep_version@), sgx-pck-id-retrieval-tool (>= @dep_version@), libsgx-dcap-default-qpl (>= @dep_version@)
+Description: Intel(R) SGX and Intel(R) TDX Provisioning Certification Service (Intel PCS) Client Tool
+ This package provides the pcs-client-tool executable (python script) for interacting with the Intel PCS web service REST API.
