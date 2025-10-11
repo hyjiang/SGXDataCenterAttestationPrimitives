@@ -1780,7 +1780,7 @@ quote3_error_t sgx_qve_verify_quote(
     unsigned char ca_from_quote[CA_SIZE] = { 0 };
     bool collateral_flag = false;
 
-    if (SGX_QL_SUCCESS != get_fmspc_ca_from_quote(p_quote, quote_size, fmspc_from_quote, FMSPC_SIZE, ca_from_quote, CA_SIZE) {
+    if (SGX_QL_SUCCESS != get_fmspc_ca_from_quote(p_quote, quote_size, fmspc_from_quote, FMSPC_SIZE, ca_from_quote, CA_SIZE)) {
         return SGX_QL_ERROR_INVALID_PARAMETER;
     }
 
