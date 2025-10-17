@@ -1,32 +1,7 @@
 Rem
-Rem Copyright (C) 2011-2022 Intel Corporation. All rights reserved.
+Rem Copyright(c) 2011-2025 Intel Corporation
 Rem
-Rem Redistribution and use in source and binary forms, with or without
-Rem modification, are permitted provided that the following conditions
-Rem are met:
-Rem
-Rem   * Redistributions of source code must retain the above copyright
-Rem     notice, this list of conditions and the following disclaimer.
-Rem   * Redistributions in binary form must reproduce the above copyright
-Rem     notice, this list of conditions and the following disclaimer in
-Rem     the documentation and/or other materials provided with the
-Rem     distribution.
-Rem   * Neither the name of Intel Corporation nor the names of its
-Rem     contributors may be used to endorse or promote products derived
-Rem     from this software without specific prior written permission.
-Rem
-Rem THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-Rem "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-Rem LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-Rem A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-Rem OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-Rem SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-Rem LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-Rem DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-Rem THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-Rem (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-Rem OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-Rem
+Rem SPDX-License-Identifier: BSD-3-Clause
 Rem
 
 setlocal enabledelayedexpansion
@@ -40,14 +15,14 @@ set sgxssl_dir=%top_dir%\sgxssl
 set openssl_out_dir=%sgxssl_dir%\openssl_source
 set openssl_ver_name=openssl-3.0.17
 set sgxssl_github_archive=https://github.com/intel/intel-sgx-ssl/archive
-set sgxssl_ver_name=3.0_Rev4
+set sgxssl_ver_name=3.0_Rev5
 set sgxssl_ver=%sgxssl_ver_name%
 set build_script=%sgxssl_dir%\Windows\build_package.cmd
 
 set server_url_path=https://www.openssl.org/source/old/3.0/
 
 set full_openssl_url=%server_url_path%/%openssl_ver_name%.tar.gz
-set sgxssl_chksum=3ae56df48a56f58fce8d0472ea82cc4380e30442b49b931c027fda9e637cb3fa
+set sgxssl_chksum=9370c158b2ed468d96d41c0955da07e434f78c2b8beb2d31deb388472af428e7
 set openssl_chksum=dfdd77e4ea1b57ff3a6dbde6b0bdc3f31db5ac99e7fdd4eaf9e1fbb6ec2db8ce
 
 if not exist %sgxssl_dir% (
