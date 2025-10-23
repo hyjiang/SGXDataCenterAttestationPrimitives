@@ -20,7 +20,7 @@ SRC_PATH := $(MKFILE_PATH)/../Enclave
 TEST_PATH := $(MKFILE_PATH)/src
 MOCK_PATH := $(MKFILE_PATH)/src/mock
 
-INCLUDE := -I$(INCLUDE_PATH) -I$(SRC_PATH) -I$(MOCK_PATH)\
+INCLUDE := -I$(INCLUDE_PATH) -I$(SRC_PATH) -I$(MOCK_PATH) -I$(PREBUILD_OPENSSL_PATH)/inc\
 					-I$(MKFILE_PATH)/../../QVL/Src/AttestationLibrary/src \
                     -I$(MKFILE_PATH)/../../QVL/Src/AttestationLibrary/include \
                     -I$(MKFILE_PATH)/../../QVL/Src/AttestationParsers/include \
