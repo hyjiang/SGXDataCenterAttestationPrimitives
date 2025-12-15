@@ -7,7 +7,7 @@ ARG NODE_VERSION=20.12.2
 FROM docker.io/library/debian AS builder
 
 # Define arguments used across multiple stages
-ARG DCAP_VERSION=DCAP_1.23
+ARG DCAP_VERSION=DCAP_1.23.101
 ARG NODE_VERSION
 
 # update and install packages, nodejs
