@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#define STRFILEVER    "1.24.100.1"
+#define STRFILEVER    "1.24.100.2"
 #define COPYRIGHT      "Copyright (C) 2025 Intel Corporation"
-#define FILEVER        1,24,100,1
-#define PRODUCTVER     1,24,100,1
-#define STRPRODUCTVER  "1.24.100.1"
+#define FILEVER        1,24,100,2
+#define PRODUCTVER     1,24,100,2
+#define STRPRODUCTVER  "1.24.100.2"
 #define COMPANYNAME    "Intel Corporation"
 #define PRODUCTNAME    "Intel® Software Guard Extensions"
 
